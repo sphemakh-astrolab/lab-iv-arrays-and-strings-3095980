@@ -1,75 +1,102 @@
-// Lab IV: Arrays and Strings
-// Programming Essentials for Astronomy I - C++
-//
-// This file is a skeleton. It gives you the STRUCTURE of the program - the
-// order things go in, and what each piece is for - and nothing else. You write
-// all of the code yourself. The README has worked examples of the syntax to
-// get you going; turning them into the exercises is your job.
-//
-// Compile and run with:
-//     g++ arrays_and_strings.cpp -o arrays_and_strings
-//     ./arrays_and_strings
-//
-// Keep the exercise comments in place as you go, so your submission is easy to
-// follow.
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <vector>
+#include <cctype>
 
-// TODO: include the three headers you need - <iostream>, <string>, and
-// <cctype> (the last one is where std::toupper lives).
+using namespace std;
 
+double mean(const double data[],int n){
+    double total = 0;
+    for(int j = 0; j < 8 ;j++){
+      total = total + data[j];
+    }
 
-// ---------------------------------------------------------------------------
-// Our star catalogue: three parallel arrays of length 8, so that index i
-// describes the same star in all three - names, distance and magnitude.
-// ---------------------------------------------------------------------------
+    return total/n;
+}
 
-// TODO: declare the three arrays. The eight stars and their values are in the
-// README.
+int indexOfMin(const double data[],int n){
+  int minindex = 0;
+  for(int i = 1;i <  8;++i){
+    if (data[i] < data[minindex]){
+        minindex = i;
+    }
 
+  }
+  return minindex;
+}
 
-// --- Part A: functions over arrays -----------------------------------------
+string toUpper(string text){
+  for(int i = 0;i<8;i++){
+    text[i] = toupper(text[i]);
 
-// Exercise 2: the average of the first n values of an array of doubles.
-// TODO: write a function that adds the values up in a loop, then divides by n.
+  }
 
-// Exercise 3: the INDEX of the smallest value in an array of doubles.
-// TODO: write a function that assumes index 0 is smallest, then checks the rest.
+}
 
-// Exercise 3 (cont.): the INDEX of the largest value.
-// TODO: write a function the same shape as the one above, looking for the
-// largest value instead.
+bool designation(const string& text){
+   if (text.size() < 2) {
+     return false;
+   }
+   return text.substr(0, 2) == "HD";
+}
 
-
-// --- Part B: functions over strings ----------------------------------------
-
-// Exercise 7: a string with every letter capitalised.
-// TODO: write a function that loops over each character and uses
-// std::toupper(...) on it.
+int main(){
 
 
-// ---------------------------------------------------------------------------
-// Start the main function here
-// ---------------------------------------------------------------------------
+string names[8]   = {"Sirius", "Canopus", "Alpha Centauri", "Arcturus",
+                          "Vega", "Rigel", "Procyon", "Betelgeuse"};
+double distance[8]     = {8.6, 310.0, 4.4, 37.0, 25.0, 860.0, 11.5, 640.0};
+double magnitude[8]    = {-1.46, -0.74, -0.27, -0.05, 0.03, 0.13, 0.34, 0.42};
 
-    // Exercise 1: print the catalogue using a for loop.
-    // TODO: loop from 0 to N-1 and print index, name, distance and magnitude.
+//PART A...............
 
-    // Exercise 2: print the average distance.
-    // TODO: call your mean function on the distance array and print the result.
+for(int i = 0;i < 8; i++){
 
-    // Exercise 3: print the nearest and the farthest star (by name).
-    // TODO: use your two index functions on the distance array.
+ cout<< i << "  " << names[i]<< "  " << distance[i] << " ly " << "  mag " << magnitude[i] << endl;   
+}
+  cout << "================================"<< endl;
+  double meanresult = mean(distance, 8);
+  int index = indexOfMin(distance, 8);
 
-    // Exercise 4: print the brightest star (smallest magnitude).
-    // TODO: use your smallest-index function on the magnitude array.
+  cout<< meanresult << endl;
+  cout<< index <<" " <<names[index] <<endl;
 
-    // Exercise 5: measure and index one star name.
-    // TODO: print a name's length, its first character and its last character.
+  int minmag = indexOfMin(magnitude, 8);
 
-    // Exercise 6: build and print a catalogue label for every star.
-    // TODO: use string concatenation (+) and std::to_string(...).
+  cout << minmag << "  " << names[minmag] << endl;
 
-    // Exercise 7: print every star's name in UPPERCASE.
-    // TODO: call your capitalising function inside a loop.
+  cout<< "================================"<<endl;
 
-    // Exercise 8 (challenge): check whether a designation starts with "HD".
-    // TODO: test strings like "HD 48915", "HR 2491" and "HD 39801".
+  //PART B..............
+
+   string nam = names[0];
+   cout<< nam.length() << endl;
+   cout<< nam[0]<<endl;
+   cout<< nam[nam.length()-1]<<endl;
+
+  cout<< "======================"<<endl;
+ 
+  for(int i = 0;i<8;i++){
+      string line = names[i] +  " distance = " + to_string(distance[i]) + " ly";
+      cout<< line<<endl;
+  }
+ 
+   cout << "==================="<< endl; 
+
+   for(int x = 0;x<names[x].length();++x){
+   string text = toUpper(names[x]);
+   cout<< text << endl;
+   }
+
+ cout<< "=========================" <<endl;
+
+
+  string desnam;
+  cin >> desnam;
+  bool x = designation(desnam);
+  cout << boolalpha << x << endl;
+
+  //Exercise 7 and 8 are tricky...i'm unsure
+
+}
